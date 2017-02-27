@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">记账本</string>
+    <string name="new_debt">记一笔</string>
+    <string name="tab_detail">明细</string>
+    <string name="tab_type">类别报表</string>
+    <string name="tab_account">账户</string>
+
+    <string-array name="planets_array">
+        <item> - </item>
+        <item> + </item>
+    </string-array>
+</resources>
