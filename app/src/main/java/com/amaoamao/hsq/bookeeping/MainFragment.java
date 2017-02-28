@@ -12,8 +12,15 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.amaoamao.hsq.bookeeping.Entity.Debt;
 import com.amaoamao.hsq.bookeeping.View.MyViewPager;
+import com.annimon.stream.Stream;
+import com.annimon.stream.function.Function;
+import com.annimon.stream.function.ToDoubleFunction;
+
+import java.util.List;
 
 
 public class MainFragment extends Fragment {
@@ -39,7 +46,24 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_main, container, false);
         initViewPager();
+        initTopBar();
         return v;
+    }
+
+    private void initTopBar() {
+        List<Debt> all = Debt.findAll(Debt.class);
+        double sumAll = Stream.of(all).map(new Function<Debt, Double>() {
+            @Override
+            public Double apply(Debt debt) {
+                return (debt.getIn() ? -1 : 1) * debt.getAmount();
+            }
+        }).mapToDouble(new ToDoubleFunction<Double>() {
+            @Override
+            public double applyAsDouble(Double aDouble) {
+                return aDouble;
+            }
+        }).sum();
+        ((TextView) v.findViewById(R.id.tv_amount_in)).setText(String.valueOf(sumAll));
     }
 
 
@@ -69,8 +93,6 @@ public class MainFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
-
-
 
 
     private void initViewPager() {

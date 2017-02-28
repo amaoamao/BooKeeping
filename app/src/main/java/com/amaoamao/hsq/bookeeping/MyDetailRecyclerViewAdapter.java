@@ -22,6 +22,9 @@ class MyDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyDetailRecyclerV
         mListener = listener;
     }
 
+    public List<Debt> getmValues() {
+        return mValues;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,7 +37,7 @@ class MyDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyDetailRecyclerV
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mDebt = mValues.get(position);
         holder.tv_content.setText(mValues.get(position).getDescription());
-        holder.tv_amount.setText((mValues.get(position).getIn() ? "+" : "") + mValues.get(position).getAmount());
+        holder.tv_amount.setText((mValues.get(position).getIn() ? "+   " : "-   ") + mValues.get(position).getAmount());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +47,7 @@ class MyDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyDetailRecyclerV
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mDebt);
                 }
-                Snackbar.make(v, mValues.get(holder.getAdapterPosition()).getDescription(), Snackbar.LENGTH_SHORT);
+                Snackbar.make(v, mValues.get(holder.getAdapterPosition()).getDescription(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }

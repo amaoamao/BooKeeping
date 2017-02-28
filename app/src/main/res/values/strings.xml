@@ -4,9 +4,11 @@
     <string name="tab_detail">明细</string>
     <string name="tab_type">类别报表</string>
     <string name="tab_account">账户</string>
+    <string name="zero">0.00</string>
+    <string name="empty" />
 
-    <string-array name="planets_array">
-        <item> - </item>
-        <item> + </item>
+    <string-array name="isIn">
+        <item>  −  </item>
+        <item>  +  </item>
     </string-array>
 </resources>

@@ -31,18 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
             transaction.replace(R.id.fg_main, newFragment);
             transaction.addToBackStack(null);
             transaction.commit();
-            fab.setImageResource(R.drawable.ic_done_white_48dp);
-            fab.setOnClickListener(listenerDone);
-        }
-    };
-    private View.OnClickListener listenerDone = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            if(((AddDebtFragment) fragments.get(fragments.size() - 1)).save(fab)){
-                onBackPressed();
-            }
-
+            fab.hide();
         }
     };
 
@@ -63,10 +52,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            fab.setImageResource(R.drawable.ic_add_white_48dp);
-            fab.setOnClickListener(listenerAdd);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments.get(fragments.size() - 1) instanceof AddDebtFragment) {
+            ((AddDebtFragment) fragments.get(fragments.size() - 1)).showReveal(false);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -80,4 +70,21 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     }
 
+    public void onButtonClick(View view) {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        ((AddDebtFragment) fragments.get(fragments.size() - 1)).onButtonClick(view);
+    }
+
+    public void setFabVisible() {
+        fab.show();
+    }
+
+    public void refreshRV() {
+        for (Fragment f : getSupportFragmentManager().getFragments()) {
+            if (f instanceof DetailFragment) {
+                ((DetailFragment) f).refreshRV();
+            }
+        }
+
+    }
 }

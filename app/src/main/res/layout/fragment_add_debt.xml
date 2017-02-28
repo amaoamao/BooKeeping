@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context="com.amaoamao.hsq.bookeeping.AddDebtFragment">
 
     <LinearLayout
@@ -49,10 +50,11 @@
     <android.support.v4.widget.Space
         android:id="@+id/type_selector"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/ll_top_bar" />
 
     <LinearLayout
+        android:id="@+id/ll_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/type_selector"
@@ -61,18 +63,87 @@
 
         <Spinner
             android:id="@+id/spinner_debt_isIn"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/et_debt_amount"
+        <TextView
+            android:id="@+id/tv_debt_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="金额"
-            android:imeOptions="actionDone"
-            android:inputType="numberDecimal"
             android:maxLines="1"
-            android:textAlignment="textEnd" />
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
+
+    <com.amaoamao.hsq.bookeeping.View.NumericPadLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pad_numeric"
+        style="@style/PadLayoutStyle"
+        android:layout_below="@+id/ll_amount"
+        android:background="@color/pad_numeric_background_color"
+        android:columnCount="3"
+        android:rowCount="4">
+
+        <Button
+            android:id="@+id/digit_7"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_8"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_9"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_4"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_5"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_6"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_1"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_2"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_3"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/dec_point"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <Button
+            android:id="@+id/digit_0"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick" />
+
+        <ImageButton
+            android:id="@+id/eq"
+            style="@style/PadButtonStyle"
+            android:onClick="onButtonClick"
+            android:src="@drawable/ic_done_white_48dp"
+            android:tint="@color/white" />
+    </com.amaoamao.hsq.bookeeping.View.NumericPadLayout>
 </RelativeLayout>

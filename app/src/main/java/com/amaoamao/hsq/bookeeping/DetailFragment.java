@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.amaoamao.hsq.bookeeping.Entity.Debt;
 
 
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -64,7 +63,7 @@ public class DetailFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyDetailRecyclerViewAdapter(Debt.findAll(Debt.class), mListener));
+            recyclerView.setAdapter(new MyDetailRecyclerViewAdapter(Debt.order("id desc").find(Debt.class), mListener));
         }
         return view;
     }
@@ -85,6 +84,15 @@ public class DetailFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void refreshRV() {
+        if (getView() != null) {
+            MyDetailRecyclerViewAdapter adapter = (MyDetailRecyclerViewAdapter) ((RecyclerView) getView()).getAdapter();
+            adapter.getmValues().clear();
+            adapter.getmValues().addAll(Debt.order("id desc").find(Debt.class));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     /**

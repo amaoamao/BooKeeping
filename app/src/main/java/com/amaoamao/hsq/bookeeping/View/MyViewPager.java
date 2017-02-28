@@ -22,7 +22,7 @@ public class MyViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return this.isPagingEnabled && super.onTouchEvent(ev);
+        return super.onTouchEvent(ev);
     }
 
     public boolean isPagingEnabled() {
