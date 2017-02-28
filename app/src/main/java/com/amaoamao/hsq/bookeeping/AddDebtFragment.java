@@ -85,12 +85,7 @@ public class AddDebtFragment extends Fragment {
         ValueAnimator anim = new ValueAnimator();
         anim.setIntValues(getResources().getColor(isEnter ? R.color.colorAccent : R.color.white), getResources().getColor(isEnter ? R.color.white : R.color.colorAccent));
         anim.setEvaluator(new ArgbEvaluator());
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                v.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-            }
-        });
+        anim.addUpdateListener(valueAnimator -> v.setBackgroundColor((Integer) valueAnimator.getAnimatedValue()));
         anim.setDuration(700);
         if (!isEnter) {
             anim.addListener(new Animator.AnimatorListener() {
@@ -126,44 +121,29 @@ public class AddDebtFragment extends Fragment {
         tv_debt_date = (TextView) v.findViewById(R.id.tv_debt_date);
         tv_debt_description = (TextView) v.findViewById(R.id.tv_debt_description);
         tv_debt_date.setText(format.format(c.getTime()));
-        tv_debt_date.setOnClickListener(new View.OnClickListener() {
+        tv_debt_date.setOnClickListener(v1 -> new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        c.set(year, month, dayOfMonth);
-                        tv_debt_date.setText(format.format(c.getTime()));
-                    }
-                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                c.set(year, month, dayOfMonth);
+                tv_debt_date.setText(format.format(c.getTime()));
             }
-        });
-        tv_debt_description.setOnClickListener(new View.OnClickListener() {
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show());
+        tv_debt_description.setOnClickListener(v12 -> new MaterialDialog.Builder(v12.getContext()).title("备注").input(null, description, true, new MaterialDialog.InputCallback() {
             @Override
-            public void onClick(View v) {
-                new MaterialDialog.Builder(v.getContext()).title("备注").input(null, description, true, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        description = input.toString();
-                    }
-                }).show();
+            public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                description = input.toString();
             }
-        });
+        }).show());
         tv_debt_account.setText(account.getName());
-        tv_debt_account.setOnClickListener(new View.OnClickListener() {
+        tv_debt_account.setOnClickListener(v13 -> new MaterialDialog.Builder(v13.getContext()).title("支付账户").items(Account.findAll(Account.class)).itemsCallbackSingleChoice(AddDebtFragment.this.which, new MaterialDialog.ListCallbackSingleChoice() {
             @Override
-            public void onClick(View v) {
-                new MaterialDialog.Builder(v.getContext()).title("支付账户").items(Account.findAll(Account.class)).itemsCallbackSingleChoice(AddDebtFragment.this.which, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        AddDebtFragment.this.which = which;
-                        account = Account.find(Account.class, which + 1);
-                        tv_debt_account.setText(account.getName());
-                        return true;
-                    }
-                }).show();
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which1, CharSequence text) {
+                AddDebtFragment.this.which = which1;
+                account = Account.find(Account.class, which1 + 1);
+                tv_debt_account.setText(account.getName());
+                return true;
             }
-        });
+        }).show());
         final Spinner spinner = (Spinner) v.findViewById(R.id.spinner_debt_isIn);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.isIn, R.layout.simple_spinner_item);
@@ -205,7 +185,7 @@ public class AddDebtFragment extends Fragment {
     }
 
     public boolean save() {
-        if (tv_debt_amount.getText().equals(getString(R.string.zero)) || !Utils.isDouble(tv_debt_amount.getText().toString())) {
+        if (!Utils.isDouble(tv_debt_amount.getText().toString()) || ((Double) Double.parseDouble(tv_debt_amount.getText().toString())).equals(Double.parseDouble(getString(R.string.zero)))) {
             Toast.makeText(getContext(), "请填写金额", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -225,7 +205,7 @@ public class AddDebtFragment extends Fragment {
                     showReveal(false);
                 break;
             default:
-                if (((Double) Double.parseDouble(tv_debt_amount.getText().toString())).equals(0.0))
+                if (tv_debt_amount.getText().toString().equals(getString(R.string.zero)))
                     tv_debt_amount.setText(R.string.empty);
                 tv_debt_amount.append(((Button) view).getText());
                 break;

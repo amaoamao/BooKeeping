@@ -1,5 +1,6 @@
 package com.amaoamao.hsq.bookeeping.Entity;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 import java.util.Date;
@@ -10,9 +11,12 @@ import java.util.Date;
  */
 
 public class Debt extends DataSupport {
+    private long id;
+
     private String description;
     private Date timeCreated;
     private String type;
+    @Column(defaultValue = "0.00")
     private Double amount;
     private Account payedBy;
     private Boolean isIn;
@@ -63,5 +67,13 @@ public class Debt extends DataSupport {
 
     public void setIn(Boolean in) {
         isIn = in;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

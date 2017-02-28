@@ -13,28 +13,98 @@
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_amount_in"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="scndscmds"
-            android:textAlignment="center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white" />
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/tv_amount_out"
+            <TextView
+                android:id="@+id/tv_month_selector_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+
+                android:text="2017年"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/grey" />
+
+            <TextView
+                android:id="@+id/tv_month_selector_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv_month_selector_year"
+                android:layout_below="@+id/tv_month_selector_year"
+                android:text="02月"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey" />
+
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="scnds"
+            android:gravity="center">
 
-            android:textAlignment="center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/tv_top_bar_1_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+
+
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/grey" />
+
+            <TextView
+                android:id="@+id/tv_top_bar_1_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv_top_bar_1_hint"
+                android:layout_below="@+id/tv_top_bar_1_hint"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_top_bar_2_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+
+                android:text="2017年"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/grey" />
+
+            <TextView
+                android:id="@+id/tv_top_bar_2_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv_top_bar_2_hint"
+                android:layout_below="@+id/tv_top_bar_2_hint"
+                android:text="02月"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/white" />
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout

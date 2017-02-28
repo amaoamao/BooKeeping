@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.amaoamao.hsq.bookeeping.Entity.Debt;
 
 import java.util.List;
@@ -39,16 +40,29 @@ class MyDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyDetailRecyclerV
         holder.tv_content.setText(mValues.get(position).getDescription());
         holder.tv_amount.setText((mValues.get(position).getIn() ? "+   " : "-   ") + mValues.get(position).getAmount());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mDebt);
-                }
+        holder.mView.setOnClickListener(v -> {
+
                 Snackbar.make(v, mValues.get(holder.getAdapterPosition()).getDescription(), Snackbar.LENGTH_SHORT).show();
-            }
+        });
+        holder.mView.setOnLongClickListener(v -> {
+            new MaterialDialog.Builder(v.getContext()).items("删除").itemsCallback((dialog, itemView, p, text) -> {
+
+                switch (p) {
+                    case 0:
+                        int pp = holder.getAdapterPosition();
+                        Debt.delete(Debt.class, getmValues().get(pp).getId());
+                        getmValues().remove(pp);
+                        if (null != mListener) {
+                            // Notify the active callbacks interface (the activity, if the
+                            // fragment is attached to one) that an item has been selected.
+                            mListener.onListFragmentInteraction(holder.mDebt);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }).show();
+            return false;
         });
     }
 

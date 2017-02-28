@@ -3,6 +3,7 @@ package com.amaoamao.hsq.bookeeping;
 import android.app.Application;
 
 import com.amaoamao.hsq.bookeeping.Entity.Account;
+import com.amaoamao.hsq.bookeeping.Entity.Debt;
 
 /**
  * Created by mao on 17-2-27.

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     @Override
     public void onListFragmentInteraction(Debt item) {
-
+        refreshRV();
     }
 
     public void onButtonClick(View view) {
@@ -83,8 +83,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
         for (Fragment f : getSupportFragmentManager().getFragments()) {
             if (f instanceof DetailFragment) {
                 ((DetailFragment) f).refreshRV();
+            } else if (f instanceof MainFragment) {
+                ((MainFragment) f).initTopBar(0);
+            } else if (f instanceof AccountFragment) {
+                ((AccountFragment) f).refreshRV();
             }
         }
-
     }
 }

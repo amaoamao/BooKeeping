@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="BooKeeping" />
 
-    <version value="1" />
+    <version value="2" />
 
     <list>
         <mapping class="com.amaoamao.hsq.bookeeping.Entity.Account" />

@@ -66,10 +66,13 @@
             android:layout_width="80dp"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <com.amaoamao.hsq.bookeeping.View.ClearableTextView
             android:id="@+id/tv_debt_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawableEnd="@drawable/ic_backspace_white_48dp"
+            android:drawablePadding="@dimen/text_margin"
             android:maxLines="1"
             android:text="@string/zero"
             android:textAlignment="textEnd"
