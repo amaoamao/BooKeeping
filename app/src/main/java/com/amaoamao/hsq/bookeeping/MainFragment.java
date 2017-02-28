@@ -35,9 +35,9 @@ public class MainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private View v;
-    private SimpleDateFormat formateYYMM = new SimpleDateFormat("YYYY年MM月", Locale.getDefault());
-    private SimpleDateFormat formateYYYY = new SimpleDateFormat("YYYY年", Locale.getDefault());
-    private SimpleDateFormat formateMM = new SimpleDateFormat("MM月", Locale.getDefault());
+    public static SimpleDateFormat formateYYMM = new SimpleDateFormat("YYYY年MM月", Locale.getDefault());
+    public static SimpleDateFormat formateYYYY = new SimpleDateFormat("YYYY年", Locale.getDefault());
+    public static SimpleDateFormat formateMM = new SimpleDateFormat("MM月", Locale.getDefault());
     public static Calendar calendar = Calendar.getInstance();
     private List<Debt> all = new ArrayList<>();
     private Map<String, List<Debt>> monthMap;
@@ -94,6 +94,8 @@ public class MainFragment extends Fragment {
         double inThisMonth = Utils.inThisMonth(all, calendar);
         double outThisMonth = Utils.outThisMonth(all, calendar);
         double leftThisMonth = inThisMonth + outThisMonth;
+        ((TextView) v.findViewById(R.id.tv_month_selector_month)).setText(formateMM.format(calendar.getTime()));
+        ((TextView) v.findViewById(R.id.tv_month_selector_year)).setText(formateYYYY.format(calendar.getTime()));
         if (position == 0) {
             ((TextView) v.findViewById(R.id.tv_top_bar_1_hint)).setText("支出");
             ((TextView) v.findViewById(R.id.tv_top_bar_1_content)).setText(String.valueOf(outThisMonth));
@@ -143,7 +145,7 @@ public class MainFragment extends Fragment {
         tabLayout.setTabTextColors(getResources().getColor(R.color.normalColor), getResources().getColor(R.color.white));
         MyViewPager pager = (MyViewPager) v.findViewById(R.id.vp_main);
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getActivity().getSupportFragmentManager()) {
-            int[] titleList = {R.string.tab_detail, R.string.tab_type, R.string.tab_account};
+            int[] titleList = {R.string.tab_detail, R.string.tab_account};
 
             @Override
             public CharSequence getPageTitle(int position) {
@@ -155,7 +157,9 @@ public class MainFragment extends Fragment {
                 switch (position) {
                     case 0:
                         return DetailFragment.newInstance();
-                    case 2:
+//                    case 1:
+//                        return TypeChartFragment.newInstance();
+                    case 1:
                         return AccountFragment.newInstance();
                     default:
                         return DetailFragment.newInstance();
@@ -164,7 +168,7 @@ public class MainFragment extends Fragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return 2;
             }
         };
         pager.setAdapter(adapter);

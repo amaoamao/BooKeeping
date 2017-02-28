@@ -15,7 +15,7 @@ public class Debt extends DataSupport {
 
     private String description;
     private Date timeCreated;
-    private String type;
+    private Integer type;
     @Column(defaultValue = "0.00")
     private Double amount;
     private Account payedBy;
@@ -37,11 +37,11 @@ public class Debt extends DataSupport {
         this.timeCreated = timeCreated;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

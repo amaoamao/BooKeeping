@@ -29,6 +29,12 @@ public class AccountFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        refreshRV();
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_list, container, false);

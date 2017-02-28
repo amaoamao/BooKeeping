@@ -8,8 +8,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     private View.OnClickListener listenerAdd = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            fab.setOnClickListener(null);
             Fragment newFragment = AddDebtFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fg_main, newFragment);
@@ -40,10 +45,16 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ;
         initFab();
+        initToolBar();
+    }
+
+    private void initToolBar() {
+//        ActionBar supportActionBar = getSupportActionBar();
 
     }
+
 
     private void initFab() {
         fab = (FloatingActionButton) findViewById(R.id.fab_add);
@@ -77,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
 
     public void setFabVisible() {
         fab.show();
+        fab.setOnClickListener(listenerAdd);
     }
 
     public void refreshRV() {
@@ -89,5 +101,25 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnFr
                 ((AccountFragment) f).refreshRV();
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                SearchActivity.start(this);
+                break;
+            case R.id.action_settings:
+                SettingsActivity.start(this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

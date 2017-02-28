@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.amaoamao.hsq.bookeeping.Entity.Account;
 import com.amaoamao.hsq.bookeeping.Entity.Debt;
 import com.amaoamao.hsq.bookeeping.Utils.Utils;
@@ -39,11 +40,21 @@ class MyAccountRecyclerViewAdapter extends RecyclerView.Adapter<MyAccountRecycle
         holder.tv_account_in.setText(String.valueOf(Utils.inThisMonth(mValues.get(holder.getAdapterPosition()).getDebts(), MainFragment.calendar)));
         holder.tv_account_out.setText(String.valueOf(Utils.outThisMonth(mValues.get(holder.getAdapterPosition()).getDebts(), MainFragment.calendar)));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.mView.setOnLongClickListener(v -> {
+            new MaterialDialog.Builder(v.getContext()).items("删除").itemsCallback((dialog, itemView, p, text) -> {
 
-            }
+                switch (p) {
+                    case 0:
+                        int pp = holder.getAdapterPosition();
+                        Account.delete(Account.class, getmValues().get(pp).getId());
+                        getmValues().remove(pp);
+                        notifyItemRemoved(pp);
+                        break;
+                    default:
+                        break;
+                }
+            }).show();
+            return false;
         });
     }
 

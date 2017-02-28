@@ -96,10 +96,12 @@ public class AddDebtFragment extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    ((MainActivity) getActivity()).setFabVisible();
-                    ((MainActivity) getActivity()).refreshRV();
-                    getActivity().getSupportFragmentManager().popBackStackImmediate();
+                    if (getActivity() != null) {
+                        ((MainActivity) getActivity()).setFabVisible();
+                        ((MainActivity) getActivity()).refreshRV();
+                        getActivity().getSupportFragmentManager().popBackStackImmediate();
 
+                    }
                 }
 
                 @Override

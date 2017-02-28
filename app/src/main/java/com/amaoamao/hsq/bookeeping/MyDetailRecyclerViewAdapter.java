@@ -53,8 +53,6 @@ class MyDetailRecyclerViewAdapter extends RecyclerView.Adapter<MyDetailRecyclerV
                         Debt.delete(Debt.class, getmValues().get(pp).getId());
                         getmValues().remove(pp);
                         if (null != mListener) {
-                            // Notify the active callbacks interface (the activity, if the
-                            // fragment is attached to one) that an item has been selected.
                             mListener.onListFragmentInteraction(holder.mDebt);
                         }
                         break;

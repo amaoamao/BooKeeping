@@ -11,4 +11,19 @@
         <item>  −  </item>
         <item>  +  </item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="NORMAL">一般</string>
+    <string name="EAT">餐饮</string>
+    <string name="SHOPPING">购物</string>
+    <string name="CLOTH">服饰</string>
+    <string name="TRANSPORT">交通</string>
+    <string name="FUN">娱乐</string>
+    <string name="SOCIAL">社交</string>
+    <string name="LIVE">居家</string>
+    <string name="TEL">通讯</string>
+    <string name="SNACK">零食</string>
+    <string name="action_settings">设置</string>
+    <string name="action_search">查找</string>
 </resources>
